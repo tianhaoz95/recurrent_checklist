@@ -1,50 +1,51 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+- Version change: 1.0.0 -> 1.1.0
+- List of modified principles:
+  - Added: Code Analysis and Linting
+- Added sections: None
+- Removed sections: None
+- Templates requiring updates:
+  - .specify/templates/plan-template.md: ⚠ pending
+  - .specify/templates/spec-template.md: ⚠ pending
+  - .specify/templates/tasks-template.md: ⚠ pending
+  - .specify/commands/speckit.analyze.toml: ⚠ pending
+  - .specify/commands/speckit.checklist.toml: ⚠ pending
+  - .specify/commands/speckit.clarify.toml: ⚠ pending
+  - .specify/commands/speckit.constitution.toml: ⚠ pending
+  - .specify/commands/speckit.implement.toml: ⚠ pending
+  - .specify/commands/speckit.plan.toml: ⚠ pending
+  - .specify/commands/speckit.specify.toml: ⚠ pending
+  - .specify/commands/speckit.tasks.toml: ⚠ pending
+  - README.md: ⚠ pending
+- Follow-up TODOs: None
+-->
+# recurrent-checklist Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### Backend Service
+The project MUST use Firebase as its primary backend service. The Firebase project ID is 'recurrent-checklist'.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### Application Framework
+The application MUST be built using the Flutter framework.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### Build Verification
+Upon completion of any task, a successful `flutter build apk` MUST be executed to verify build correctness.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### Test Driven Development & Verification
+All new features MUST include corresponding unit tests. UI features MUST also include widget tests. Upon completion of any task, a successful `flutter test` MUST be executed to verify functionality correctness.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### Code Analysis and Linting
+When a Dart/Flutter code file is modified, `flutter analyze` MUST be used to identify and fix potential linter issues.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Technology Stack
+The primary backend service is Firebase (Project ID: recurrent-checklist). The application framework is Flutter.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Development Practices
+All new features MUST include corresponding unit tests. UI features MUST also include widget tests. Before marking a task as complete, `flutter test` and `flutter build apk` MUST be executed successfully. Additionally, `flutter analyze` MUST be run and any identified linter issues fixed when Dart/Flutter code files are modified.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+All PRs/reviews must verify compliance with these principles. Amendments to this constitution require documentation, approval, and a migration plan. This constitution supersedes all other practices.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.1.0 | **Ratified**: 2025-11-10 | **Last Amended**: 2025-11-10
