@@ -14,10 +14,10 @@ The implementation will follow an iterative approach, prioritizing core function
 
 This phase focuses on setting up the Flutter project and integrating Firebase, which are foundational for all subsequent features.
 
-- [ ] T001 Initialize Flutter project (already done, verify setup)
-- [ ] T002 Add `firebase_core` and `firebase_auth` dependencies to `pubspec.yaml`
-- [ ] T003 Add `cloud_firestore` dependency to `pubspec.yaml`
-- [ ] T004 Run `flutter pub get` to fetch new dependencies
+- [x] T001 Initialize Flutter project (already done, verify setup)
+- [x] T002 Add `firebase_core` and `firebase_auth` dependencies to `pubspec.yaml`
+- [x] T003 Add `cloud_firestore` dependency to `pubspec.yaml`
+- [x] T004 Run `flutter pub get` to fetch new dependencies
 - [ ] T005 Configure Firebase for Android by placing `google-services.json` in `android/app/`
 - [ ] T006 Configure Firebase for iOS by placing `GoogleService-Info.plist` in `ios/Runner/`
 - [ ] T007 Initialize Firebase in `lib/main.dart`
