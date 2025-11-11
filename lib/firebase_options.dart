@@ -83,4 +83,5 @@ class DefaultFirebaseOptions {
     authDomain: 'recurrent-checklist.firebaseapp.com',
     storageBucket: 'recurrent-checklist.firebasestorage.app',
   );
+
 }
