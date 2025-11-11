@@ -1,8 +1,9 @@
 <!--
 Sync Impact Report:
-- Version change: 1.1.0 -> 1.2.0
+- Version change: 1.2.0 -> 1.3.0
 - List of modified principles:
-  - Backend Service: Added Firebase Usage Limitation
+  - Test Driven Development & Verification: Removed widget test requirement
+  - Development Practices: Removed widget test requirement
 - Added sections: None
 - Removed sections: None
 - Templates requiring updates:
@@ -35,7 +36,7 @@ The application MUST be built using the Flutter framework.
 Upon completion of any task, a successful `flutter build apk` MUST be executed to verify build correctness.
 
 ### Test Driven Development & Verification
-All new features MUST include corresponding unit tests. UI features MUST also include widget tests. Upon completion of any task, a successful `flutter test` MUST be executed to verify functionality correctness.
+All new features MUST include corresponding unit tests. Upon completion of any task, a successful `flutter test` MUST be executed to verify functionality correctness.
 
 ### Code Analysis and Linting
 When a Dart/Flutter code file is modified, `flutter analyze` MUST be used to identify and fix potential linter issues.
@@ -44,9 +45,9 @@ When a Dart/Flutter code file is modified, `flutter analyze` MUST be used to ide
 The primary backend service is Firebase (Project ID: recurrent-checklist). The application framework is Flutter.
 
 ## Development Practices
-All new features MUST include corresponding unit tests. UI features MUST also include widget tests. Before marking a task as complete, `flutter test` and `flutter build apk` MUST be executed successfully. Additionally, `flutter analyze` MUST be run and any identified linter issues fixed when Dart/Flutter code files are modified.
+All new features MUST include corresponding unit tests. Before marking a task as complete, `flutter test` and `flutter build apk` MUST be executed successfully. Additionally, `flutter analyze` MUST be run and any identified linter issues fixed when Dart/Flutter code files are modified.
 
 ## Governance
 All PRs/reviews must verify compliance with these principles. Amendments to this constitution require documentation, approval, and a migration plan. This constitution supersedes all other practices.
 
-**Version**: 1.2.0 | **Ratified**: 2025-11-10 | **Last Amended**: 2025-11-10
+**Version**: 1.3.0 | **Ratified**: 2025-11-10 | **Last Amended**: 2025-11-10
