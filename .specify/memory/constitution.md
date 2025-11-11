@@ -1,8 +1,8 @@
 <!--
 Sync Impact Report:
-- Version change: 1.0.0 -> 1.1.0
+- Version change: 1.1.0 -> 1.2.0
 - List of modified principles:
-  - Added: Code Analysis and Linting
+  - Backend Service: Added Firebase Usage Limitation
 - Added sections: None
 - Removed sections: None
 - Templates requiring updates:
@@ -26,8 +26,9 @@ Sync Impact Report:
 
 ### Backend Service
 The project MUST use Firebase as its primary backend service. The Firebase project ID is 'recurrent-checklist'.
+The project MUST limit the usage of Firebase to Authentication and Firestore Database products only. Other Firebase products MUST NOT be used.
 
-### Application Framework
+## Application Framework
 The application MUST be built using the Flutter framework.
 
 ### Build Verification
@@ -48,4 +49,4 @@ All new features MUST include corresponding unit tests. UI features MUST also in
 ## Governance
 All PRs/reviews must verify compliance with these principles. Amendments to this constitution require documentation, approval, and a migration plan. This constitution supersedes all other practices.
 
-**Version**: 1.1.0 | **Ratified**: 2025-11-10 | **Last Amended**: 2025-11-10
+**Version**: 1.2.0 | **Ratified**: 2025-11-10 | **Last Amended**: 2025-11-10
