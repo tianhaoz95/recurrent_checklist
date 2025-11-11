@@ -7,3 +7,5 @@ Fix: tapping on the add button on checlist screen does not bring up the pop up t
 Fix error when the user tap on the add checklist button in the events screen. It failed to add all items from the event to the checklist pool, and it error out with "no items to add from this event" when there are items.
 
 The backend for the application is Firebase, but limit the product usage to Firebase authentication and Firebase Firestore. The project id for Firebase is `recurrent-checklist` which is already created. The framework used for the application is Flutter. For testing, only unit tests are used, do not create widget tests or integration tests. After implementing each task, run `flutter test` and `flutter build apk` to check correctness.
+
+Change the app behavior. Adding items to events in events screen will not add the items in checklist screen. Add a new button in each event in events screen with add icon. When user tap the newly added button, all items from the event will be added to the checklist pool in checklist screen.
