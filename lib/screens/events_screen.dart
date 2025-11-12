@@ -104,7 +104,6 @@ class _EventsScreenState extends State<EventsScreen> {
   }
 
   void _showAddChecklistItemToEventDialog(Event event) {
-    final l10n = AppLocalizations.of(context)!;
     _itemContentController.clear(); // Clear previous text
 
     showDialog(
@@ -185,10 +184,15 @@ class _EventsScreenState extends State<EventsScreen> {
                       ),
                       Text(event.note),
                       const SizedBox(height: 8.0),
-                      ...event.checklistItems.map((item) => Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Text('- ${item.content}'),
-                          )),
+                      Wrap(
+                        spacing: 8.0, // gap between adjacent chips
+                        runSpacing: 4.0, // gap between lines
+                        children: event.checklistItems
+                            .map((item) => Chip(
+                                  label: Text(item.content),
+                                ))
+                            .toList(),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
