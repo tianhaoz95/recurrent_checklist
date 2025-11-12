@@ -40,6 +40,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   uuid: ^4.4.0
+  shared_preferences: ^2.0.0 # Add this line
 
 dev_dependencies:
   flutter_test:

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:recurrent_checklist/services/auth_service.dart';
 import 'package:recurrent_checklist/services/firestore_service.dart';
 import 'package:recurrent_checklist/generated/l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // Added import
+import 'package:recurrent_checklist/main.dart'; // Added import
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -13,20 +15,33 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   final AuthService _auth = AuthService();
   final FirestoreService _firestoreService = FirestoreService();
-  String? _selectedLanguage;
+  String? _selectedLanguageDisplayName; // Display name for the selected language
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Initialize _selectedLanguage based on current locale
-    final locale = Localizations.localeOf(context);
-    if (locale.languageCode == 'en') {
-      _selectedLanguage = AppLocalizations.of(context)!.english;
-    } else if (locale.languageCode == 'zh') {
-      _selectedLanguage = AppLocalizations.of(context)!.chinese;
-    } else {
-      _selectedLanguage = AppLocalizations.of(context)!.systemDefault;
-    }
+    _updateSelectedLanguageDisplayName();
+  }
+
+  void _updateSelectedLanguageDisplayName() async {
+    final l10n = AppLocalizations.of(context)!;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? languageCode = prefs.getString('languageCode');
+
+    setState(() {
+      if (languageCode == null) {
+        _selectedLanguageDisplayName = l10n.systemDefault;
+      }
+      else if (languageCode == 'en') {
+        _selectedLanguageDisplayName = l10n.english;
+      }
+      else if (languageCode == 'zh') {
+        _selectedLanguageDisplayName = l10n.chinese;
+      }
+      else {
+        _selectedLanguageDisplayName = l10n.systemDefault;
+      }
+    });
   }
 
   @override
@@ -79,14 +94,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: Text(l10n.deleteAccount),
             ),
             DropdownButton<String>(
-              value: _selectedLanguage,
+              value: _selectedLanguageDisplayName,
               onChanged: (String? newValue) {
-                setState(() {
-                  _selectedLanguage = newValue;
-                  // TODO: Implement actual language change logic
-                  // This would typically involve a package like provider or bloc
-                  // to update the MaterialApp's locale.
-                });
+                if (newValue != null) {
+                  setState(() {
+                    _selectedLanguageDisplayName = newValue;
+                  });
+                  Locale? newLocale; // Changed to nullable Locale
+                  if (newValue == l10n.english) {
+                    newLocale = const Locale('en');
+                  }
+                  else if (newValue == l10n.chinese) {
+                    newLocale = const Locale('zh');
+                  }
+                  else {
+                    // System Default - set to null to use system locale
+                    newLocale = null;
+                  }
+                  MyApp.setLocale(context, newLocale);
+                }
               },
               items: <String>[
                 l10n.english,

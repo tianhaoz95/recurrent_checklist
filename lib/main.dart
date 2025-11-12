@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:recurrent_checklist/generated/l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'package:recurrent_checklist/screens/main_screen.dart';
 import 'package:recurrent_checklist/screens/sign_in_screen.dart';
@@ -14,8 +15,71 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  static void setLocale(BuildContext context, Locale? newLocale) {
+    _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
+    state?.setLocale(newLocale);
+  }
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale? _locale;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLocale();
+  }
+
+  _loadLocale() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? languageCode = prefs.getString('languageCode');
+    if (languageCode != null) {
+      setState(() {
+        _locale = _getLocaleFromLanguageCode(languageCode);
+      });
+    } else {
+      setState(() {
+        _locale = null; // Use system default
+      });
+    }
+  }
+
+  static Locale _getLocaleFromLanguageCode(String languageCode) {
+    switch (languageCode) {
+      case 'en':
+        return const Locale('en');
+      case 'zh':
+        return const Locale('zh');
+      default:
+        return const Locale('en'); // Default to English
+    }
+  }
+
+  void setLocale(Locale? newLocale) {
+    setState(() {
+      _locale = newLocale;
+    });
+    if (newLocale == null) {
+      _saveLocale(null);
+    } else {
+      _saveLocale(newLocale.languageCode);
+    }
+  }
+
+  _saveLocale(String? languageCode) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (languageCode == null) {
+      await prefs.remove('languageCode');
+    } else {
+      await prefs.setString('languageCode', languageCode);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +89,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      locale: _locale, // Use the managed locale
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
