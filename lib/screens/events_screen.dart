@@ -13,18 +13,33 @@ class EventsScreen extends StatefulWidget {
   State<EventsScreen> createState() => _EventsScreenState();
 }
 
-class _EventsScreenState extends State<EventsScreen> {
+class _EventsScreenState extends State<EventsScreen> with SingleTickerProviderStateMixin {
   final FirestoreService _firestoreService = FirestoreService();
   final AuthService _auth = AuthService(); // Initialize AuthService
   final TextEditingController _eventNameController = TextEditingController();
   final TextEditingController _eventNoteController = TextEditingController();
   final TextEditingController _itemContentController = TextEditingController(); // New controller for checklist item content
+  bool _isRemovingItems = false; // New state variable for removing items mode
+
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 150),
+    )..repeat(reverse: true);
+    _animation = Tween<double>(begin: -0.02, end: 0.02).animate(_animationController);
+  }
 
   @override
   void dispose() {
     _eventNameController.dispose();
     _eventNoteController.dispose();
     _itemContentController.dispose(); // Dispose the new controller
+    _animationController.dispose(); // Dispose the animation controller
     super.dispose();
   }
 
@@ -143,6 +158,13 @@ class _EventsScreenState extends State<EventsScreen> {
     );
   }
 
+  void _removeChecklistItemFromEvent(Event event, ChecklistItem itemToRemove) async {
+    final updatedChecklist = List<ChecklistItem>.from(event.checklistItems)
+      ..removeWhere((item) => item.id == itemToRemove.id);
+    final updatedEvent = event.copyWith(checklistItems: updatedChecklist);
+    await _firestoreService.updateEvent(updatedEvent);
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -187,11 +209,29 @@ class _EventsScreenState extends State<EventsScreen> {
                       Wrap(
                         spacing: 8.0, // gap between adjacent chips
                         runSpacing: 4.0, // gap between lines
-                        children: event.checklistItems
-                            .map((item) => Chip(
+                        children: event.checklistItems.map((item) {
+                          return _isRemovingItems
+                              ? AnimatedBuilder(
+                                  animation: _animation,
+                                  builder: (context, child) {
+                                    return Transform.rotate(
+                                      angle: _animation.value,
+                                      child: child,
+                                    );
+                                  },
+                                  child: GestureDetector(
+                                    onTap: () => _removeChecklistItemFromEvent(event, item),
+                                    child: Chip(
+                                      label: Text(item.content),
+                                      deleteIcon: const Icon(Icons.cancel),
+                                      onDeleted: () => _removeChecklistItemFromEvent(event, item),
+                                    ),
+                                  ),
+                                )
+                              : Chip(
                                   label: Text(item.content),
-                                ))
-                            .toList(),
+                                );
+                        }).toList(),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -200,6 +240,15 @@ class _EventsScreenState extends State<EventsScreen> {
                             icon: const Icon(Icons.add_task),
                             onPressed: () => _showAddChecklistItemToEventDialog(event),
                             tooltip: 'Add Checklist Item to Event',
+                          ),
+                          IconButton(
+                            icon: Icon(_isRemovingItems ? Icons.check_circle : Icons.remove_circle_outline),
+                            onPressed: () {
+                              setState(() {
+                                _isRemovingItems = !_isRemovingItems;
+                              });
+                            },
+                            tooltip: 'Remove Checklist Items',
                           ),
                           IconButton(
                             icon: const Icon(Icons.edit),
