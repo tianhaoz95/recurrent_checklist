@@ -3,3 +3,5 @@ Build on top of the bare minimum flutter application initialized in the current 
 Your task is to add internationalization support for Chinese. When the user selects Chinese in settings page, all content in the app should switch to Chinese.
 
 Your task is to add a button next to add item button in event screen to remove items. when the user taps on this button, all checklist items in the event should have a remove button on the top right corner and have a shaking animation. When user taps on a checklist item in this state, it should be removed.
+
+your task is to add a sorting method by added time in checklist screen.
