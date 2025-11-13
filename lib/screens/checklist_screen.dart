@@ -62,19 +62,23 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
   }
 
   List<ChecklistItem> _sortChecklistItems(List<ChecklistItem> items) {
+    List<ChecklistItem> sortedItems = List.from(items); // Create a mutable copy
     switch (_sortOption) {
       case SortOption.alphabetical:
-        items.sort((a, b) => a.content.compareTo(b.content));
+        sortedItems.sort((a, b) => a.content.compareTo(b.content));
         break;
       case SortOption.checkedStatus:
-        items.sort((a, b) => a.isChecked ? 1 : -1);
+        sortedItems.sort((a, b) => a.isChecked ? 1 : -1);
+        break;
+      case SortOption.addedTime:
+        sortedItems.sort((a, b) => b.createdAt.compareTo(a.createdAt)); // Sort by newest first
         break;
       case SortOption.none:
       default:
-        // No sorting
+        // No sorting, return original order (or a copy of it)
         break;
     }
-    return items;
+    return sortedItems;
   }
 
   @override
@@ -103,6 +107,10 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
               const PopupMenuItem<SortOption>(
                 value: SortOption.checkedStatus,
                 child: Text('Checked Status'),
+              ),
+              const PopupMenuItem<SortOption>(
+                value: SortOption.addedTime,
+                child: Text('Added Time'),
               ),
             ],
             icon: const Icon(Icons.sort),
@@ -159,4 +167,5 @@ enum SortOption {
   none,
   alphabetical,
   checkedStatus,
+  addedTime, // New sorting option
 }
