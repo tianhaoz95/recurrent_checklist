@@ -274,16 +274,10 @@ class _EventsScreenState extends State<EventsScreen> with SingleTickerProviderSt
                               },
                               tooltip: l10n.deleteEvent,
                             ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF4DD0E1), // Teal color
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
+                            IconButton(
+                              icon: const Icon(Icons.add, color: Colors.black),
                               onPressed: () => _addEventChecklistToPool(event),
-                              child: Text(l10n.addChecklistToPool),
+                              tooltip: l10n.addChecklistToPool,
                             ),
                           ],
                         ),
