@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCksGkPC6vBCdWT2y_zfyEi4Ftz5s01-0w',
-    appId: '1:180725745491:android:507c310e8d58a91fc743a6',
+    appId: '1:180725745491:android:a243e27024b7c569c743a6',
     messagingSenderId: '180725745491',
     projectId: 'recurrent-checklist',
     storageBucket: 'recurrent-checklist.firebasestorage.app',
@@ -59,16 +59,16 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBqIdCXmDWnBXJBRfSIcXcrqr5Nmf-6bPg',
-    appId: '1:180725745491:ios:18f38349b84e9da1c743a6',
+    appId: '1:180725745491:ios:720d0b0cf505bb79c743a6',
     messagingSenderId: '180725745491',
     projectId: 'recurrent-checklist',
     storageBucket: 'recurrent-checklist.firebasestorage.app',
-    iosBundleId: 'com.example.recurrentChecklist',
+    iosBundleId: 'com.hejitech.recurrentcheclist',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyBqIdCXmDWnBXJBRfSIcXcrqr5Nmf-6bPg',
-    appId: '1:180725745491:ios:18f38349b84e9da1c743a6',
+    appId: '1:180725745491:ios:c100f5410f8bafb8c743a6',
     messagingSenderId: '180725745491',
     projectId: 'recurrent-checklist',
     storageBucket: 'recurrent-checklist.firebasestorage.app',
@@ -83,4 +83,5 @@ class DefaultFirebaseOptions {
     authDomain: 'recurrent-checklist.firebaseapp.com',
     storageBucket: 'recurrent-checklist.firebasestorage.app',
   );
+
 }

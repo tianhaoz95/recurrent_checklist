@@ -1,4 +1,4 @@
-package com.example.recurrent_checklist
+package com.hejitech.recurrentchecklist
 
 import io.flutter.embedding.android.FlutterActivity
 

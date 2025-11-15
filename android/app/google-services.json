@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:180725745491:android:507c310e8d58a91fc743a6",
+        "mobilesdk_app_id": "1:180725745491:android:a243e27024b7c569c743a6",
         "android_client_info": {
-          "package_name": "com.example.recurrent_checklist"
+          "package_name": "com.hejitech.recurrentchecklist"
         }
       },
       "oauth_client": [],
