@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.hejitech" "\0"
-            VALUE "FileDescription", "recurrent_checklist" "\0"
+            VALUE "FileDescription", "Recurrr" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "recurrent_checklist" "\0"
+            VALUE "InternalName", "Recurrr" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2025 com.hejitech. All rights reserved." "\0"
-            VALUE "OriginalFilename", "recurrent_checklist.exe" "\0"
-            VALUE "ProductName", "recurrent_checklist" "\0"
+            VALUE "OriginalFilename", "Recurrr.exe" "\0"
+            VALUE "ProductName", "Recurrr" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
