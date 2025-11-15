@@ -19,7 +19,7 @@ class _EventsScreenState extends State<EventsScreen> with SingleTickerProviderSt
   final TextEditingController _eventNameController = TextEditingController();
   final TextEditingController _eventNoteController = TextEditingController();
   final TextEditingController _itemContentController = TextEditingController(); // New controller for checklist item content
-  bool _isRemovingItems = false; // New state variable for removing items mode
+  Map<String, bool> _isRemovingItemsMap = {}; // New state variable for removing items mode per event
 
   late AnimationController _animationController;
   late Animation<double> _animation;
@@ -192,83 +192,103 @@ class _EventsScreenState extends State<EventsScreen> with SingleTickerProviderSt
             itemCount: events.length,
             itemBuilder: (context, index) {
               final event = events[index];
-              return Card(
-                margin: const EdgeInsets.all(8.0),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        event.name,
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      Text(event.note),
-                      const SizedBox(height: 8.0),
-                      Wrap(
-                        spacing: 8.0, // gap between adjacent chips
-                        runSpacing: 4.0, // gap between lines
-                        children: event.checklistItems.map((item) {
-                          return _isRemovingItems
-                              ? AnimatedBuilder(
-                                  animation: _animation,
-                                  builder: (context, child) {
-                                    return Transform.rotate(
-                                      angle: _animation.value,
-                                      child: child,
-                                    );
-                                  },
-                                  child: GestureDetector(
-                                    onTap: () => _removeChecklistItemFromEvent(event, item),
-                                    child: Chip(
-                                      label: Text(item.content),
-                                      deleteIcon: const Icon(Icons.cancel),
-                                      onDeleted: () => _removeChecklistItemFromEvent(event, item),
+              return GestureDetector(
+                onLongPress: () {
+                  setState(() {
+                    _isRemovingItemsMap[event.id] = !(_isRemovingItemsMap[event.id] ?? false);
+                  });
+                },
+                child: Card(
+                  margin: const EdgeInsets.all(8.0),
+                  color: Colors.white, // White background for card
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0), // Increased padding
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          event.name,
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+                        ),
+                        Text(event.note, style: TextStyle(color: Colors.grey[700])),
+                        const SizedBox(height: 8.0),
+                        Wrap(
+                          spacing: 8.0, // gap between adjacent chips
+                          runSpacing: 4.0, // gap between lines
+                          children: event.checklistItems.map((item) {
+                            return (_isRemovingItemsMap[event.id] ?? false)
+                                ? AnimatedBuilder(
+                                    animation: _animation,
+                                    builder: (context, child) {
+                                      return Transform.rotate(
+                                        angle: _animation.value,
+                                        child: child,
+                                      );
+                                    },
+                                    child: GestureDetector(
+                                      onTap: () => _removeChecklistItemFromEvent(event, item),
+                                      child: Chip(
+                                        label: Text(item.content, style: const TextStyle(color: Colors.white)),
+                                        backgroundColor: const Color(0xFF4DD0E1), // Teal color
+                                        deleteIcon: const Icon(Icons.cancel, color: Colors.white),
+                                        onDeleted: () => _removeChecklistItemFromEvent(event, item),
+                                      ),
                                     ),
-                                  ),
-                                )
-                              : Chip(
-                                  label: Text(item.content),
-                                );
-                        }).toList(),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            icon: const Icon(Icons.add_task),
-                            onPressed: () => _showAddChecklistItemToEventDialog(event),
-                            tooltip: 'Add Checklist Item to Event',
-                          ),
-                          IconButton(
-                            icon: Icon(_isRemovingItems ? Icons.check_circle : Icons.remove_circle_outline),
-                            onPressed: () {
-                              setState(() {
-                                _isRemovingItems = !_isRemovingItems;
-                              });
-                            },
-                            tooltip: 'Remove Checklist Items',
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.edit),
-                            onPressed: () => _showAddEditEventDialog(event: event),
-                            tooltip: l10n.editEvent,
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.delete),
-                            onPressed: () async {
-                              await _firestoreService.deleteEvent(event.id);
-                            },
-                            tooltip: l10n.deleteEvent,
-                          ),
-                          ElevatedButton(
-                            onPressed: () => _addEventChecklistToPool(event),
-                            child: Text(l10n.addChecklistToPool),
-                          ),
-                        ],
-                      ),
-                    ],
+                                  )
+                                : Chip(
+                                    label: Text(item.content, style: const TextStyle(color: Colors.white)),
+                                    backgroundColor: const Color(0xFF4DD0E1), // Teal color
+                                  );
+                          }).toList(),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.add_task, color: Colors.black),
+                              onPressed: () => _showAddChecklistItemToEventDialog(event),
+                              tooltip: 'Add Checklist Item to Event',
+                            ),
+                            IconButton(
+                              icon: Icon((_isRemovingItemsMap[event.id] ?? false) ? Icons.check_circle : Icons.remove_circle_outline, color: Colors.black),
+                              onPressed: () {
+                                setState(() {
+                                  _isRemovingItemsMap[event.id] = !(_isRemovingItemsMap[event.id] ?? false);
+                                });
+                              },
+                              tooltip: 'Remove Checklist Items',
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.edit, color: Colors.black),
+                              onPressed: () => _showAddEditEventDialog(event: event),
+                              tooltip: l10n.editEvent,
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.delete, color: Colors.black),
+                              onPressed: () async {
+                                await _firestoreService.deleteEvent(event.id);
+                              },
+                              tooltip: l10n.deleteEvent,
+                            ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF4DD0E1), // Teal color
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                              onPressed: () => _addEventChecklistToPool(event),
+                              child: Text(l10n.addChecklistToPool),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );
