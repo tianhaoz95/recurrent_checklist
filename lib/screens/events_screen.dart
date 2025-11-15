@@ -254,30 +254,37 @@ class _EventsScreenState extends State<EventsScreen> with SingleTickerProviderSt
                               tooltip: 'Add Checklist Item to Event',
                             ),
                             IconButton(
-                              icon: Icon((_isRemovingItemsMap[event.id] ?? false) ? Icons.check_circle : Icons.remove_circle_outline, color: Colors.black),
-                              onPressed: () {
-                                setState(() {
-                                  _isRemovingItemsMap[event.id] = !(_isRemovingItemsMap[event.id] ?? false);
-                                });
-                              },
-                              tooltip: 'Remove Checklist Items',
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.edit, color: Colors.black),
-                              onPressed: () => _showAddEditEventDialog(event: event),
-                              tooltip: l10n.editEvent,
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.delete, color: Colors.black),
-                              onPressed: () async {
-                                await _firestoreService.deleteEvent(event.id);
-                              },
-                              tooltip: l10n.deleteEvent,
-                            ),
-                            IconButton(
                               icon: const Icon(Icons.add, color: Colors.black),
                               onPressed: () => _addEventChecklistToPool(event),
                               tooltip: l10n.addChecklistToPool,
+                            ),
+                            PopupMenuButton<String>(
+                              icon: const Icon(Icons.more_vert, color: Colors.black),
+                              onSelected: (String result) async {
+                                if (result == 'remove_items') {
+                                  setState(() {
+                                    _isRemovingItemsMap[event.id] = !(_isRemovingItemsMap[event.id] ?? false);
+                                  });
+                                } else if (result == 'edit_event') {
+                                  _showAddEditEventDialog(event: event);
+                                } else if (result == 'delete_event') {
+                                  await _firestoreService.deleteEvent(event.id);
+                                }
+                              },
+                              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                                PopupMenuItem<String>(
+                                  value: 'remove_items',
+                                  child: Text((_isRemovingItemsMap[event.id] ?? false) ? 'Done Removing Items' : 'Remove Checklist Items'),
+                                ),
+                                PopupMenuItem<String>(
+                                  value: 'edit_event',
+                                  child: Text(l10n.editEvent),
+                                ),
+                                PopupMenuItem<String>(
+                                  value: 'delete_event',
+                                  child: Text(l10n.deleteEvent),
+                                ),
+                              ],
                             ),
                           ],
                         ),
