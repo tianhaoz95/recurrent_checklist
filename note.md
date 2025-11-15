@@ -5,3 +5,5 @@ Your task is to add internationalization support for Chinese. When the user sele
 Your task is to add a button next to add item button in event screen to remove items. when the user taps on this button, all checklist items in the event should have a remove button on the top right corner and have a shaking animation. When user taps on a checklist item in this state, it should be removed.
 
 your task is to add a sorting method by added time in checklist screen.
+
+when the checklist items in the event screen is in editable state, the delete icon button should be on the top right corner as a overlay so that the size of the button does not need to change.
