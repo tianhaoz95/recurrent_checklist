@@ -4,6 +4,7 @@ import 'package:recurrent_checklist/models/event.dart';
 import 'package:recurrent_checklist/services/firestore_service.dart';
 import 'package:recurrent_checklist/services/auth_service.dart'; // Import AuthService
 import 'package:recurrent_checklist/generated/l10n/app_localizations.dart';
+import 'package:recurrent_checklist/constants/app_colors.dart';
 import 'package:uuid/uuid.dart';
 
 class EventsScreen extends StatefulWidget {
@@ -242,7 +243,7 @@ class _EventsScreenState extends State<EventsScreen> with SingleTickerProviderSt
                                         children: [
                                           Chip(
                                             label: Text(item.content, style: const TextStyle(color: Colors.white)),
-                                            backgroundColor: const Color(0xFF4DD0E1), // Teal color
+                                            backgroundColor: AppColors.primaryColor, // Teal color
                                           ),
                                           Positioned(
                                             top: -10, // Adjust as needed for positioning
@@ -259,7 +260,7 @@ class _EventsScreenState extends State<EventsScreen> with SingleTickerProviderSt
                                     )
                                   : Chip(
                                       label: Text(item.content, style: const TextStyle(color: Colors.white)),
-                                      backgroundColor: const Color(0xFF4DD0E1), // Teal color
+                                      backgroundColor: AppColors.primaryColor, // Teal color
                                     );
                             }).toList(),
                           ),

@@ -3,6 +3,7 @@ import 'package:recurrent_checklist/screens/checklist_screen.dart';
 import 'package:recurrent_checklist/screens/events_screen.dart';
 import 'package:recurrent_checklist/screens/settings_screen.dart';
 import 'package:recurrent_checklist/generated/l10n/app_localizations.dart';
+import 'package:recurrent_checklist/constants/app_colors.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -50,7 +51,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: AppColors.primaryColor,
         onTap: _onItemTapped,
       ),
     );

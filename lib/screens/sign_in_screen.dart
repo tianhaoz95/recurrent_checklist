@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recurrent_checklist/services/auth_service.dart';
 import 'package:recurrent_checklist/generated/l10n/app_localizations.dart';
+import 'package:recurrent_checklist/constants/app_colors.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -97,7 +98,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       },
                       child: const Text(
                         'Forget password ?',
-                        style: TextStyle(color: Color(0xFF4DD0E1)), // Teal color
+                        style: TextStyle(color: AppColors.primaryColor), // Teal color
                       ),
                     ),
                   ),
@@ -106,7 +107,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4DD0E1), // Teal color
+                        backgroundColor: AppColors.primaryColor, // Teal color
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -142,7 +143,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         },
                         child: const Text(
                           'Sign Up',
-                          style: TextStyle(color: Color(0xFF4DD0E1)), // Teal color
+                          style: TextStyle(color: AppColors.primaryColor), // Teal color
                         ),
                       ),
                     ],
