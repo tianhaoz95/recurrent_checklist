@@ -238,14 +238,23 @@ class _EventsScreenState extends State<EventsScreen> with SingleTickerProviderSt
                                           child: child,
                                         );
                                       },
-                                      child: GestureDetector(
-                                        onTap: () => _removeChecklistItemFromEvent(event, item),
-                                        child: Chip(
-                                          label: Text(item.content, style: const TextStyle(color: Colors.white)),
-                                          backgroundColor: const Color(0xFF4DD0E1), // Teal color
-                                          deleteIcon: const Icon(Icons.cancel, color: Colors.white),
-                                          onDeleted: () => _removeChecklistItemFromEvent(event, item),
-                                        ),
+                                      child: Stack(
+                                        children: [
+                                          Chip(
+                                            label: Text(item.content, style: const TextStyle(color: Colors.white)),
+                                            backgroundColor: const Color(0xFF4DD0E1), // Teal color
+                                          ),
+                                          Positioned(
+                                            top: -10, // Adjust as needed for positioning
+                                            right: -10, // Adjust as needed for positioning
+                                            child: IconButton(
+                                              icon: const Icon(Icons.cancel, color: Colors.red, size: 20),
+                                              onPressed: () => _removeChecklistItemFromEvent(event, item),
+                                              padding: EdgeInsets.zero,
+                                              constraints: const BoxConstraints(),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     )
                                   : Chip(
