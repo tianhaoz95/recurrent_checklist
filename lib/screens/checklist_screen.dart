@@ -86,7 +86,10 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
         title: Text(l10n.checklist),
         actions: [
           PopupMenuButton<SortOption>(

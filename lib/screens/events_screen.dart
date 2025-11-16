@@ -171,7 +171,10 @@ class _EventsScreenState extends State<EventsScreen> with SingleTickerProviderSt
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
         title: Text(l10n.events),
       ),
       body: StreamBuilder<List<Event>>(

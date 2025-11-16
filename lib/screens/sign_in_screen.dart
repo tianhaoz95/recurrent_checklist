@@ -28,7 +28,7 @@ class _SignInScreenState extends State<SignInScreen> {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5), // Light grey background
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Positioned(
