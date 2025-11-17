@@ -95,7 +95,7 @@ class _EventsScreenState extends State<EventsScreen> with SingleTickerProviderSt
                       decoration: InputDecoration(labelText: l10n.eventNote),
                     ),
                     SwitchListTile(
-                      title: const Text('Make Recurring'),
+                      title: Text(l10n.makeRecurring),
                       value: _isRecurring,
                       onChanged: (bool value) {
                         setState(() {

@@ -22,5 +22,6 @@
     "language": "Language",
     "english": "English",
     "chinese": "Chinese",
-    "systemDefault": "System Default"
+    "systemDefault": "System Default",
+    "makeRecurring": "Make Recurring"
 }
