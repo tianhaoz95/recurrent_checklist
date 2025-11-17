@@ -36,26 +36,49 @@ class _MainScreenState extends State<MainScreen> {
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        unselectedItemColor: Colors.grey,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.check_box),
-            label: l10n.checklist,
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(30.0),
+            topRight: Radius.circular(30.0),
           ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.list_alt),
-            label: l10n.events,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 0,
+              blurRadius: 10,
+              offset: const Offset(0, -5), // changes position of shadow
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(30.0),
+            topRight: Radius.circular(30.0),
           ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.settings),
-            label: l10n.settings,
+          child: BottomNavigationBar(
+            backgroundColor: Colors.white,
+            unselectedItemColor: Colors.grey,
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.check_box),
+                label: l10n.checklist,
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.list_alt),
+                label: l10n.events,
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.settings),
+                label: l10n.settings,
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: AppColors.primaryColor,
+            onTap: _onItemTapped,
           ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: AppColors.primaryColor,
-        onTap: _onItemTapped,
+        ),
       ),
     );
   }
