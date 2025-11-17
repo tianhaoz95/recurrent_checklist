@@ -79,4 +79,22 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get makeRecurring => '设为循环事件';
+
+  @override
+  String get welcomeBack => '欢迎回来';
+
+  @override
+  String get enterEmailValidation => '请输入邮箱';
+
+  @override
+  String get enterPasswordValidation => '密码长度至少6位';
+
+  @override
+  String get forgetPassword => '忘记密码？';
+
+  @override
+  String get couldNotSignIn => '无法登录';
+
+  @override
+  String get dontHaveAccount => '没有账号？';
 }

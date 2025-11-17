@@ -49,8 +49,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height * 0.2), // Dynamic spacing
-                  const Text(
-                    'Sign Up',
+                  Text(
+                    l10n.signUp,
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
@@ -70,7 +70,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
                     ),
-                    validator: (val) => val!.isEmpty ? 'Enter an email' : null,
+                    validator: (val) => val!.isEmpty ? l10n.enterEmailValidation : null,
                   ),
                   const SizedBox(height: 16.0),
                   TextFormField(
@@ -87,7 +87,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     obscureText: true,
                     validator: (val) =>
-                        val!.length < 6 ? 'Enter a password 6+ chars long' : null,
+                        val!.length < 6 ? l10n.enterPasswordValidation : null,
                   ),
                   const SizedBox(height: 24.0),
                   SizedBox(
@@ -108,7 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           if (result == null) {
                             // Show error
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Could not sign up')),
+                              SnackBar(content: Text(l10n.couldNotSignUp)),
                             );
                           } else {
                             Navigator.pop(context); // Go back to sign in screen
@@ -123,15 +123,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Already have an account? ",
+                        l10n.alreadyHaveAccount,
                         style: TextStyle(color: Colors.grey[600]),
                       ),
                       TextButton(
                         onPressed: () {
                           Navigator.pop(context); // Go back to sign in screen
                         },
-                        child: const Text(
-                          'Sign In',
+                        child: Text(
+                          l10n.signIn,
                           style: TextStyle(color: AppColors.primaryColor), // Teal color
                         ),
                       ),

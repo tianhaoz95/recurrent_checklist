@@ -49,8 +49,8 @@ class _SignInScreenState extends State<SignInScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height * 0.2), // Dynamic spacing
-                  const Text(
-                    'Welcome back',
+                  Text(
+                    l10n.welcomeBack,
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
@@ -70,7 +70,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
                     ),
-                    validator: (val) => val!.isEmpty ? 'Enter an email' : null,
+                    validator: (val) => val!.isEmpty ? l10n.enterEmailValidation : null,
                   ),
                   const SizedBox(height: 16.0),
                   TextFormField(
@@ -87,7 +87,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     obscureText: true,
                     validator: (val) =>
-                        val!.length < 6 ? 'Enter a password 6+ chars long' : null,
+                        val!.length < 6 ? l10n.enterPasswordValidation : null,
                   ),
                   const SizedBox(height: 16.0),
                   Align(
@@ -96,8 +96,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       onPressed: () {
                         // TODO: Implement forgot password functionality
                       },
-                      child: const Text(
-                        'Forget password ?',
+                      child: Text(
+                        l10n.forgetPassword,
                         style: TextStyle(color: AppColors.primaryColor), // Teal color
                       ),
                     ),
@@ -121,7 +121,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           if (result == null) {
                             // Show error
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Could not sign in')),
+                              SnackBar(content: Text(l10n.couldNotSignIn)),
                             );
                           }
                         }
@@ -134,7 +134,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Don't have an account ? ",
+                        l10n.dontHaveAccount,
                         style: TextStyle(color: Colors.grey[600]),
                       ),
                       TextButton(

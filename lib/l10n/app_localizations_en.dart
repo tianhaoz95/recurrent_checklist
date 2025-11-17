@@ -79,4 +79,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get makeRecurring => 'Make Recurring';
+
+  @override
+  String get welcomeBack => 'Welcome back';
+
+  @override
+  String get enterEmailValidation => 'Enter an email';
+
+  @override
+  String get enterPasswordValidation => 'Enter a password 6+ chars long';
+
+  @override
+  String get forgetPassword => 'Forget password ?';
+
+  @override
+  String get couldNotSignIn => 'Could not sign in';
+
+  @override
+  String get dontHaveAccount => 'Don\'t have an account ?';
 }

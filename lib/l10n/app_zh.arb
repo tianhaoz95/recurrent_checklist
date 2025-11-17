@@ -23,5 +23,45 @@
     "english": "英语",
     "chinese": "中文",
     "systemDefault": "系统默认",
-    "makeRecurring": "设为循环事件"
+    "makeRecurring": "设为循环事件",
+    "welcomeBack": "欢迎回来",
+    "enterEmailValidation": "请输入邮箱",
+    "enterPasswordValidation": "密码长度至少6位",
+    "forgetPassword": "忘记密码？",
+    "couldNotSignIn": "无法登录",
+    "dontHaveAccount": "没有账号？",
+    "couldNotSignUp": "无法注册",
+    "alreadyHaveAccount": "已有账号？",
+    "confirmDeleteAccountTitle": "确认删除账户",
+    "confirmDeleteAccountContent": "您确定要删除您的账户吗？此操作无法撤销。",
+    "cancelButton": "取消",
+    "deleteButton": "删除",
+    "repeatEvery": "重复间隔",
+    "days": "天",
+    "weeks": "周",
+    "months": "月",
+    "scheduledTime": "预定时间:",
+    "eventChecklistAdded": "{eventName} 清单已添加到池中！",
+    "@eventChecklistAdded": {
+        "placeholders": {
+            "eventName": {}
+        }
+    },
+    "addChecklistItemToEvent": "添加清单项到事件",
+    "itemContent": "项目内容",
+    "add": "添加",
+    "error": "错误: {errorMessage}",
+    "@error": {
+        "placeholders": {
+            "errorMessage": {}
+        }
+    },
+    "noEventsYet": "暂无事件！",
+    "removeChecklistItems": "移除清单项",
+    "doneRemovingItems": "完成移除",
+    "noneSortOption": "无",
+    "alphabeticalSortOption": "按字母顺序",
+    "checkedStatusSortOption": "按选中状态",
+    "addedTimeSortOption": "按添加时间",
+    "noChecklistItemsYet": "暂无清单项！"
 }

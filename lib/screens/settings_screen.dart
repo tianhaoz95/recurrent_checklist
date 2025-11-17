@@ -72,17 +72,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: const Text('Confirm Delete Account'),
-                      content: const Text(
-                          'Are you sure you want to delete your account? This action cannot be undone.'),
+                      title: Text(l10n.confirmDeleteAccountTitle),
+                      content: Text(
+                          l10n.confirmDeleteAccountContent),
                       actions: <Widget>[
                         TextButton(
                           onPressed: () => Navigator.of(context).pop(false),
-                          child: const Text('Cancel'),
+                          child: Text(l10n.cancelButton),
                         ),
                         TextButton(
                           onPressed: () => Navigator.of(context).pop(true),
-                          child: const Text('Delete'),
+                          child: Text(l10n.deleteButton),
                         ),
                       ],
                     );

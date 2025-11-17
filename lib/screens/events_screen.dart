@@ -109,7 +109,7 @@ class _EventsScreenState extends State<EventsScreen> with SingleTickerProviderSt
                           Expanded(
                             child: TextField(
                               keyboardType: TextInputType.number,
-                              decoration: const InputDecoration(labelText: 'Repeat Every'),
+                              decoration: InputDecoration(labelText: l10n.repeatEvery),
                               controller: TextEditingController(text: _repeatInterval.toString()),
                               onChanged: (value) {
                                 setState(() {
@@ -130,14 +130,18 @@ class _EventsScreenState extends State<EventsScreen> with SingleTickerProviderSt
                                 .map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
-                                child: Text(value),
+                                child: Text(
+                                  value == 'Days' ? l10n.days :
+                                  value == 'Weeks' ? l10n.weeks :
+                                  l10n.months,
+                                ),
                               );
                             }).toList(),
                           ),
                         ],
                       ),
                       ListTile(
-                        title: Text('Scheduled Time: ${_scheduledTime.format(context)}'),
+                        title: Text('${l10n.scheduledTime} ${_scheduledTime.format(context)}'),
                         trailing: const Icon(Icons.access_time),
                         onTap: () async {
                           final TimeOfDay? picked = await showTimePicker(
@@ -157,7 +161,7 @@ class _EventsScreenState extends State<EventsScreen> with SingleTickerProviderSt
               ),
               actions: <Widget>[
                 TextButton(
-                  child: const Text('Cancel'),
+                  child: Text(l10n.cancelButton),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -206,36 +210,38 @@ class _EventsScreenState extends State<EventsScreen> with SingleTickerProviderSt
   }
 
   void _addEventChecklistToPool(Event event) async {
+    final l10n = AppLocalizations.of(context)!;
     for (var item in event.checklistItems) {
       final newItem = item.copyWith(id: const Uuid().v4(), isChecked: false);
       await _firestoreService.addChecklistItem(newItem);
     }
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('${event.name} checklist added to pool!')),
+      SnackBar(content: Text(l10n.eventChecklistAdded(event.name))),
     );
   }
 
   void _showAddChecklistItemToEventDialog(Event event) {
+    final l10n = AppLocalizations.of(context)!;
     _itemContentController.clear(); // Clear previous text
 
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Add Checklist Item to Event'),
+          title: Text(l10n.addChecklistItemToEvent),
           content: TextField(
             controller: _itemContentController, // Use the class-level controller
-            decoration: const InputDecoration(labelText: 'Item Content'),
+            decoration: InputDecoration(labelText: l10n.itemContent),
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Cancel'),
+              child: Text(l10n.cancelButton),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             ElevatedButton(
-              child: const Text('Add'),
+              child: Text(l10n.add),
               onPressed: () async {
                 if (_itemContentController.text.isNotEmpty) {
                   final newItem = ChecklistItem(
@@ -280,10 +286,10 @@ class _EventsScreenState extends State<EventsScreen> with SingleTickerProviderSt
             return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(child: Text(l10n.error(snapshot.error.toString())));
           }
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No events yet!'));
+            return Center(child: Text(l10n.noEventsYet));
           }
 
           final events = snapshot.data!;
@@ -369,7 +375,7 @@ class _EventsScreenState extends State<EventsScreen> with SingleTickerProviderSt
                               IconButton(
                                 icon: const Icon(Icons.add_task, color: Colors.black),
                                 onPressed: () => _showAddChecklistItemToEventDialog(event),
-                                tooltip: 'Add Checklist Item to Event',
+                                tooltip: l10n.addChecklistItemToEvent,
                               ),
                               IconButton(
                                 icon: const Icon(Icons.add, color: Colors.black),
@@ -392,7 +398,7 @@ class _EventsScreenState extends State<EventsScreen> with SingleTickerProviderSt
                                 itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
                                   PopupMenuItem<String>(
                                     value: 'remove_items',
-                                    child: Text((_isRemovingItemsMap[event.id] ?? false) ? 'Done Removing Items' : 'Remove Checklist Items'),
+                                    child: Text((_isRemovingItemsMap[event.id] ?? false) ? l10n.doneRemovingItems : l10n.removeChecklistItems),
                                   ),
                                   PopupMenuItem<String>(
                                     value: 'edit_event',

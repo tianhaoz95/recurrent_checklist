@@ -23,5 +23,45 @@
     "english": "English",
     "chinese": "Chinese",
     "systemDefault": "System Default",
-    "makeRecurring": "Make Recurring"
+    "makeRecurring": "Make Recurring",
+    "welcomeBack": "Welcome back",
+    "enterEmailValidation": "Enter an email",
+    "enterPasswordValidation": "Enter a password 6+ chars long",
+    "forgetPassword": "Forget password ?",
+    "couldNotSignIn": "Could not sign in",
+    "dontHaveAccount": "Don't have an account ?",
+    "couldNotSignUp": "Could not sign up",
+    "alreadyHaveAccount": "Already have an account?",
+    "confirmDeleteAccountTitle": "Confirm Delete Account",
+    "confirmDeleteAccountContent": "Are you sure you want to delete your account? This action cannot be undone.",
+    "cancelButton": "Cancel",
+    "deleteButton": "Delete",
+    "repeatEvery": "Repeat Every",
+    "days": "Days",
+    "weeks": "Weeks",
+    "months": "Months",
+    "scheduledTime": "Scheduled Time:",
+    "eventChecklistAdded": "{eventName} checklist added to pool!",
+    "@eventChecklistAdded": {
+        "placeholders": {
+            "eventName": {}
+        }
+    },
+    "addChecklistItemToEvent": "Add Checklist Item to Event",
+    "itemContent": "Item Content",
+    "add": "Add",
+    "error": "Error: {errorMessage}",
+    "@error": {
+        "placeholders": {
+            "errorMessage": {}
+        }
+    },
+    "noEventsYet": "No events yet!",
+    "removeChecklistItems": "Remove Checklist Items",
+    "doneRemovingItems": "Done Removing Items",
+    "noneSortOption": "None",
+    "alphabeticalSortOption": "Alphabetical",
+    "checkedStatusSortOption": "Checked Status",
+    "addedTimeSortOption": "Added Time",
+    "noChecklistItemsYet": "No checklist items yet!"
 }

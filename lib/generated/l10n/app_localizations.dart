@@ -62,7 +62,8 @@ import 'app_localizations_zh.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale)
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -70,7 +71,8 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -82,17 +84,18 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
-    Locale('zh')
+    Locale('zh'),
   ];
 
   /// No description provided for @appName.
@@ -238,9 +241,190 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Make Recurring'**
   String get makeRecurring;
+
+  /// No description provided for @welcomeBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back'**
+  String get welcomeBack;
+
+  /// No description provided for @enterEmailValidation.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an email'**
+  String get enterEmailValidation;
+
+  /// No description provided for @enterPasswordValidation.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a password 6+ chars long'**
+  String get enterPasswordValidation;
+
+  /// No description provided for @forgetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forget password ?'**
+  String get forgetPassword;
+
+  /// No description provided for @couldNotSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not sign in'**
+  String get couldNotSignIn;
+
+  /// No description provided for @dontHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account ?'**
+  String get dontHaveAccount;
+
+  /// No description provided for @couldNotSignUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not sign up'**
+  String get couldNotSignUp;
+
+  /// No description provided for @alreadyHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account?'**
+  String get alreadyHaveAccount;
+
+  /// No description provided for @confirmDeleteAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Delete Account'**
+  String get confirmDeleteAccountTitle;
+
+  /// No description provided for @confirmDeleteAccountContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete your account? This action cannot be undone.'**
+  String get confirmDeleteAccountContent;
+
+  /// No description provided for @cancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancelButton;
+
+  /// No description provided for @deleteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get deleteButton;
+
+  /// No description provided for @repeatEvery.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat Every'**
+  String get repeatEvery;
+
+  /// No description provided for @days.
+  ///
+  /// In en, this message translates to:
+  /// **'Days'**
+  String get days;
+
+  /// No description provided for @weeks.
+  ///
+  /// In en, this message translates to:
+  /// **'Weeks'**
+  String get weeks;
+
+  /// No description provided for @months.
+  ///
+  /// In en, this message translates to:
+  /// **'Months'**
+  String get months;
+
+  /// No description provided for @scheduledTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Scheduled Time:'**
+  String get scheduledTime;
+
+  /// No description provided for @eventChecklistAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'{eventName} checklist added to pool!'**
+  String eventChecklistAdded(Object eventName);
+
+  /// No description provided for @addChecklistItemToEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Checklist Item to Event'**
+  String get addChecklistItemToEvent;
+
+  /// No description provided for @itemContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Item Content'**
+  String get itemContent;
+
+  /// No description provided for @add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get add;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error: {errorMessage}'**
+  String error(Object errorMessage);
+
+  /// No description provided for @noEventsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No events yet!'**
+  String get noEventsYet;
+
+  /// No description provided for @removeChecklistItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Checklist Items'**
+  String get removeChecklistItems;
+
+  /// No description provided for @doneRemovingItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Done Removing Items'**
+  String get doneRemovingItems;
+
+  /// No description provided for @noneSortOption.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get noneSortOption;
+
+  /// No description provided for @alphabeticalSortOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Alphabetical'**
+  String get alphabeticalSortOption;
+
+  /// No description provided for @checkedStatusSortOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Checked Status'**
+  String get checkedStatusSortOption;
+
+  /// No description provided for @addedTimeSortOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Added Time'**
+  String get addedTimeSortOption;
+
+  /// No description provided for @noChecklistItemsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No checklist items yet!'**
+  String get noChecklistItemsYet;
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -249,25 +433,26 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'zh'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['en', 'zh'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en': return AppLocalizationsEn();
-    case 'zh': return AppLocalizationsZh();
+    case 'en':
+      return AppLocalizationsEn();
+    case 'zh':
+      return AppLocalizationsZh();
   }
 
   throw FlutterError(
     'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
+    'that was used.',
   );
 }

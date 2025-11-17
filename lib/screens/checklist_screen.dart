@@ -35,14 +35,14 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Cancel'),
+              child: Text(l10n.cancelButton),
               onPressed: () {
                 _itemController.clear();
                 Navigator.of(context).pop();
               },
             ),
             ElevatedButton(
-              child: const Text('Add'),
+              child: Text(l10n.add),
               onPressed: () {
                 if (_itemController.text.isNotEmpty) {
                   final newItem = ChecklistItem(
@@ -99,21 +99,21 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
               });
             },
             itemBuilder: (BuildContext context) => <PopupMenuEntry<SortOption>>[
-              const PopupMenuItem<SortOption>(
+              PopupMenuItem<SortOption>(
                 value: SortOption.none,
-                child: Text('None'),
+                child: Text(l10n.noneSortOption),
               ),
-              const PopupMenuItem<SortOption>(
+              PopupMenuItem<SortOption>(
                 value: SortOption.alphabetical,
-                child: Text('Alphabetical'),
+                child: Text(l10n.alphabeticalSortOption),
               ),
-              const PopupMenuItem<SortOption>(
+              PopupMenuItem<SortOption>(
                 value: SortOption.checkedStatus,
-                child: Text('Checked Status'),
+                child: Text(l10n.checkedStatusSortOption),
               ),
-              const PopupMenuItem<SortOption>(
+              PopupMenuItem<SortOption>(
                 value: SortOption.addedTime,
-                child: Text('Added Time'),
+                child: Text(l10n.addedTimeSortOption),
               ),
             ],
             icon: const Icon(Icons.sort),
@@ -133,10 +133,10 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
             return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(child: Text(l10n.error(snapshot.error.toString())));
           }
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No checklist items yet!'));
+            return Center(child: Text(l10n.noChecklistItemsYet));
           }
 
           List<ChecklistItem> items = _sortChecklistItems(snapshot.data!);
