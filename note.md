@@ -11,3 +11,5 @@ when the checklist items in the event screen is in editable state, the delete ic
 add a feature to allow user schedule auto repeated add for a event. For example, I should be able to set that all checklist items from event A will be added to the pool at 4:00 am every 3 days. Add the UI, logic and the background job to implement this feature. 
 
 your task is to find all places in the app that is not internationalized and internationalize them. make sure `flutter build aab` passes for the changes.
+
+your task is to create a todo list for modernizing the UI for the application and adding animations to UI when appicable and put it in `feature-list.md`.
