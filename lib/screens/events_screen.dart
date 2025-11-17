@@ -6,6 +6,8 @@ import 'package:recurrent_checklist/services/auth_service.dart'; // Import AuthS
 import 'package:recurrent_checklist/generated/l10n/app_localizations.dart';
 import 'package:recurrent_checklist/constants/app_colors.dart';
 import 'package:uuid/uuid.dart';
+import 'package:intl/intl.dart'; // Import for date formatting
+import 'dart:math'; // Import for math operations
 
 class EventsScreen extends StatefulWidget {
   const EventsScreen({super.key});
@@ -24,6 +26,12 @@ class _EventsScreenState extends State<EventsScreen> with SingleTickerProviderSt
 
   late AnimationController _animationController;
   late Animation<double> _animation;
+
+  // New state variables for scheduling
+  bool _isRecurring = false;
+  int _repeatInterval = 1;
+  String _repeatFrequency = 'Days'; // Default frequency
+  TimeOfDay _scheduledTime = TimeOfDay.now();
 
   @override
   void initState() {
@@ -49,61 +57,149 @@ class _EventsScreenState extends State<EventsScreen> with SingleTickerProviderSt
     if (event != null) {
       _eventNameController.text = event.name;
       _eventNoteController.text = event.note;
+      _isRecurring = event.isRecurring;
+      _repeatInterval = event.repeatInterval;
+      _repeatFrequency = event.repeatFrequency.isNotEmpty ? event.repeatFrequency : 'Days';
+      final parts = event.scheduledTime.split(':');
+      if (parts.length == 2) {
+        _scheduledTime = TimeOfDay(hour: int.parse(parts[0]), minute: int.parse(parts[1]));
+      } else {
+        _scheduledTime = TimeOfDay.now();
+      }
     } else {
       _eventNameController.clear();
       _eventNoteController.clear();
+      _isRecurring = false;
+      _repeatInterval = 1;
+      _repeatFrequency = 'Days';
+      _scheduledTime = TimeOfDay.now();
     }
 
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(event == null ? l10n.createEvent : l10n.editEvent),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: _eventNameController,
-                decoration: InputDecoration(labelText: l10n.eventName),
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text(event == null ? l10n.createEvent : l10n.editEvent),
+              content: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextField(
+                      controller: _eventNameController,
+                      decoration: InputDecoration(labelText: l10n.eventName),
+                    ),
+                    TextField(
+                      controller: _eventNoteController,
+                      decoration: InputDecoration(labelText: l10n.eventNote),
+                    ),
+                    SwitchListTile(
+                      title: const Text('Make Recurring'),
+                      value: _isRecurring,
+                      onChanged: (bool value) {
+                        setState(() {
+                          _isRecurring = value;
+                        });
+                      },
+                    ),
+                    if (_isRecurring) ...[
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              keyboardType: TextInputType.number,
+                              decoration: const InputDecoration(labelText: 'Repeat Every'),
+                              controller: TextEditingController(text: _repeatInterval.toString()),
+                              onChanged: (value) {
+                                setState(() {
+                                  _repeatInterval = int.tryParse(value) ?? 1;
+                                });
+                              },
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          DropdownButton<String>(
+                            value: _repeatFrequency,
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                _repeatFrequency = newValue!;
+                              });
+                            },
+                            items: <String>['Days', 'Weeks', 'Months']
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ],
+                      ),
+                      ListTile(
+                        title: Text('Scheduled Time: ${_scheduledTime.format(context)}'),
+                        trailing: const Icon(Icons.access_time),
+                        onTap: () async {
+                          final TimeOfDay? picked = await showTimePicker(
+                            context: context,
+                            initialTime: _scheduledTime,
+                          );
+                          if (picked != null && picked != _scheduledTime) {
+                            setState(() {
+                              _scheduledTime = picked;
+                            });
+                          }
+                        },
+                      ),
+                    ],
+                  ],
+                ),
               ),
-              TextField(
-                controller: _eventNoteController,
-                decoration: InputDecoration(labelText: l10n.eventNote),
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            ElevatedButton(
-              child: Text(event == null ? l10n.createEvent : l10n.editEvent),
-              onPressed: () async {
-                if (_eventNameController.text.isNotEmpty) {
-                  if (event == null) {
-                    final newEvent = Event(
-                      id: const Uuid().v4(),
-                      name: _eventNameController.text,
-                      note: _eventNoteController.text,
-                      checklistItems: [],
-                      userId: _auth.getCurrentUser()!.uid, // Use _auth here
-                    );
-                    await _firestoreService.addEvent(newEvent);
-                  } else {
-                    final updatedEvent = event.copyWith(
-                      name: _eventNameController.text,
-                      note: _eventNoteController.text,
-                    );
-                    await _firestoreService.updateEvent(updatedEvent);
-                  }
-                  Navigator.of(context).pop();
-                }
-              },
-            ),
-          ],
+              actions: <Widget>[
+                TextButton(
+                  child: const Text('Cancel'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ElevatedButton(
+                  child: Text(event == null ? l10n.createEvent : l10n.editEvent),
+                  onPressed: () async {
+                    if (_eventNameController.text.isNotEmpty) {
+                      final String formattedTime =
+                          '${_scheduledTime.hour.toString().padLeft(2, '0')}:${_scheduledTime.minute.toString().padLeft(2, '0')}';
+
+                      if (event == null) {
+                        final newEvent = Event(
+                          id: const Uuid().v4(),
+                          name: _eventNameController.text,
+                          note: _eventNoteController.text,
+                          checklistItems: [],
+                          userId: _auth.getCurrentUser()!.uid,
+                          isRecurring: _isRecurring,
+                          repeatInterval: _isRecurring ? _repeatInterval : 0,
+                          repeatFrequency: _isRecurring ? _repeatFrequency : '',
+                          scheduledTime: _isRecurring ? formattedTime : '',
+                        );
+                        await _firestoreService.addEvent(newEvent);
+                      } else {
+                        final updatedEvent = event.copyWith(
+                          name: _eventNameController.text,
+                          note: _eventNoteController.text,
+                          isRecurring: _isRecurring,
+                          repeatInterval: _isRecurring ? _repeatInterval : 0,
+                          repeatFrequency: _isRecurring ? _repeatFrequency : '',
+                          scheduledTime: _isRecurring ? formattedTime : '',
+                        );
+                        await _firestoreService.updateEvent(updatedEvent);
+                      }
+                      Navigator.of(context).pop();
+                    }
+                  },
+                ),
+              ],
+            );
+          },
         );
       },
     );

@@ -2,16 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:recurrent_checklist/generated/l10n/app_localizations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'firebase_options.dart';
+import 'package:recurrent_checklist/firebase_options.dart';
 import 'package:recurrent_checklist/screens/main_screen.dart';
 import 'package:recurrent_checklist/screens/sign_in_screen.dart';
-import 'package:recurrent_checklist/screens/sign_up_screen.dart';
+import 'package:recurrent_checklist/screens/sign_up_screen.dart'; // Added import
+import 'package:recurrent_checklist/generated/l10n/app_localizations.dart';
+import 'package:workmanager/workmanager.dart'; // Import workmanager
+import 'package:recurrent_checklist/services/background_service.dart'; // Import background service
+import 'package:shared_preferences/shared_preferences.dart'; // Added import
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  // Initialize Workmanager
+  Workmanager().initialize(
+    callbackDispatcher, // The top-level function to be called
+    isInDebugMode: true, // Set to false in production
+  );
+
+  // Register a periodic task
+  Workmanager().registerPeriodicTask(
+    "1", // Unique ID for the task
+    RECURRING_EVENT_TASK, // Task name
+    frequency: const Duration(hours: 1), // Run every hour
+    initialDelay: const Duration(minutes: 5), // Start after 5 minutes
+    constraints: Constraints(
+      networkType: NetworkType.connected,
+    ),
+  );
+
   runApp(const MyApp());
 }
 
@@ -114,7 +136,7 @@ class _MyAppState extends State<MyApp> {
       ),
       routes: {
         '/signin': (context) => const SignInScreen(),
-        '/signup': (context) => const SignUpScreen(),
+        '/signup': (context) => SignUpScreen(),
         '/main': (context) => const MainScreen(),
       },
     );
