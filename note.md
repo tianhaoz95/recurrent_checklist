@@ -13,3 +13,5 @@ add a feature to allow user schedule auto repeated add for a event. For example,
 your task is to find all places in the app that is not internationalized and internationalize them. make sure `flutter build aab` passes for the changes.
 
 your task is to create a todo list for modernizing the UI for the application and adding animations to UI when appicable and put it in `feature-list.md`.
+
+your task is to implement items in `feature-list.md`. For each item in `feature-list.md`, use git to create a branch with descriptive name, implement the feature, test with `flutter build aab`, once passed commit the change and switch back to the main branch and continue to the next feature in `feature-list.md`. you can modify `feature-list.md` to keep track of the progress.
