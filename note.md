@@ -7,3 +7,5 @@ Your task is to add a button next to add item button in event screen to remove i
 your task is to add a sorting method by added time in checklist screen.
 
 when the checklist items in the event screen is in editable state, the delete icon button should be on the top right corner as a overlay so that the size of the button does not need to change.
+
+add a feature to allow user schedule auto repeated add for a event. For example, I should be able to set that all checklist items from event A will be added to the pool at 4:00 am every 3 days. Add the UI, logic and the background job to implement this feature. 
